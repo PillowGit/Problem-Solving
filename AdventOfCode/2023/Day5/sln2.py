@@ -1,7 +1,3 @@
-from collections import deque
-from rich import print
-
-# Parsing
 f = open('input.dat', 'r')
 lines = f.readlines()
 f.close()
@@ -16,29 +12,14 @@ for line in lines:
         continue
     transitions[i].append([int(x) for x in line.split()])
 
-# Helper function
-def overlap(l1, r1, l2, r2):
-    a, i = max(l1, l2), min(r1, r2)
-    if a <= i:
-        return a, i
-    else:
-        return None
+def solve(l, r, lvl):
+    if lvl == len(transitions): return l
+    scores = []
+    for dest, source, width in transitions[lvl]:
+        left = max(l, source)
+        right = min(r, source+width)
+        if left > right: continue
+        scores.append(solve(left-source+dest, right-source+dest, lvl + 1))
+    return min(scores) if scores else float('inf')
 
-# Generating q
-best = float('inf')
-q = deque()
-for i in range(0, len(seeds), 2):
-    q.append((seeds[i], seeds[i]+seeds[i+1], 0))
-
-# Iterate
-while q:
-    rstart, rend, map = q.popleft()
-    if map == len(transitions):
-        best = min(best, rstart)
-        continue
-    for dest, source, rng in transitions[map]:
-        new = overlap(rstart, rend, source, source + rng)
-        if new is None: continue
-        q.append((new[0]-source+dest,new[1]-source+dest,map+1))
-
-print(best)
+print(min([solve(seeds[i], seeds[i]+seeds[i+1], 0) for i in range(0, len(seeds), 2)]))
