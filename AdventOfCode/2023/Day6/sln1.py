@@ -46,3 +46,6 @@ Wrong:
 Right:
 449550
 """
+
+# One Liner
+print(eval('*'.join([str(c) for c in [(lambda t,d:sum(1 for i in range(t) if i*(t-i)>d))(i, j) for i, j in zip([int(x) for x in open('input.dat', 'r').readlines()[0].split(':')[1].strip().replace('  ', ' ').replace('  ', ' ').replace('  ', ' ').replace('  ', ' ').split(' ')], [int(x) for x in open('input.dat', 'r').readlines()[1].split(':')[1].strip().replace('  ', ' ').replace('  ', ' ').replace('  ', ' ').replace('  ', ' ').split(' ')])]])))

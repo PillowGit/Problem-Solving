@@ -20,3 +20,6 @@ for i in range(time+1, -1, -1):
         break
 
 print(upper - lower + 1)
+
+# One Liner
+print((lambda t,d:sum(1 for i in range(t) if i*(t-i)>d))(int(open('input.dat','r').readlines()[0].split(':')[1].replace(' ','')),int(open('input.dat','r').readlines()[1].split(':')[1].replace(' ',''))))
