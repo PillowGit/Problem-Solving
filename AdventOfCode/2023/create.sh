@@ -1,16 +1,16 @@
 #!/bin/bash
 
-echo "Which AoC Day is it?"
+if [ "$#" -eq 1 ]; then
+	if [ ! -d "./Day$1" ]; then
+		year=$(basename "$PWD")
 
-read daynum
+		cp -R "./template" "./Day$1"
 
-if [ ! -d "./Day$daynum" ]; then
-	year=$(basename "$PWD")
-
-	cp -R "./template" "./Day$daynum"
-
-	cd "Day$daynum"
-	aocd $daynum $year > input.dat
+		cd "Day$1"
+		aocd $1 $year > input.dat
+	else
+		echo "A folder for day $1 already exists"
+	fi
 else
-	echo "A folder for Day $daynum already exists"
+    echo "Please provide the day to clone when running the script"
 fi
