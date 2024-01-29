@@ -103,7 +103,7 @@ def chunked_ints(file_name: str = '', path: str = '', contents: str = '', chunk_
         except Exception as e:
             raise e
     else:
-        raise Exception('You must specify some way to get your input')
+        raise Exception('You must specify some argument to get your input')
     ret = []
     if chunk_size > 0:
         for i in range(0, len(lines), chunk_size):
